@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Promise Fun</title>
+</head>
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    // Promise example
+    const promise = new Promise(function (resolve, reject) {
+        const randomNum = Math.round(Math.random() * 10);
+        if (randomNum > 5) {
+          console.log("I'm going to wait 5 seconds and then resolve this");
+          setTimeout(() => resolve("I am resolved!"), 5000);
+        } else {
+          console.log("I'm going to wait 5 seconds and then reject this");
+          setTimeout(() => reject("I got rejected!"), 5000);
+        }
+      });
+      //console.log(promise);
+      // Handling promise response
+      promise.then(
+        function(result){
+          //console.log(`Yay! This is the ${result}`);
+        },
+        function(error){
+          //console.log(`Oops! Here is the error: ${error}`);
+        }
+      )
+      // Fetch API
+      const githubPromise = fetch('https://api.github.com/users/alfalfaanne12345');
+      //console.log(githubPromise);
+      githubPromise.then(function(response){
+        return response.json();
+      }).then(function(user){
+        //console.log(user);
+      }).catch(function(error){
+        //console.log(error);
+      })
+      // jQuery example
+      const jQueryPromise = $.ajax({
+        url: 'https://pokeapi.co/api/v2/pokemen/1/',
+        dataType: 'json',
+        method: 'GET'
+      })
+      // jQueryPromise.then(
+      //   function (data) {
+      //     console.log(data);
+      //   },
+      //   function(error){
+      //     console.log('😡');
+      //   })
+      jQueryPromise.done(function(result){
+        console.log(result);
+      }).fail(function(error){
+        console.log(error);
+      })
+
+    //   jQuery Async and await 
+
+        async function getColour(colourName) {
+        const colourApiResponse = await $.ajax(`https://fun-fun-colors.herokuapp.com/colorcheck?q=${colourName}`);
+        console.log(colourApiResponse);
+        }
+
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
